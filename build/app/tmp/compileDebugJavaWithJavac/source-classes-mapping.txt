@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/crypto_meniac/BuildConfig.java
+ com.example.crypto_meniac.BuildConfig
