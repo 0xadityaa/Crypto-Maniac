@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/adi/Desktop/crypto_meniac/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/adi/Desktop/crypto_maniac/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/home/adi/Desktop/crypto_meniac/android/app/src/main/res/values/styles.xml",
+                    "source": "/home/adi/Desktop/crypto_maniac/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

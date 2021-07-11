@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/adi/Desktop/crypto_meniac/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sk/values-sk.xml",
+            "outputFile": "/home/adi/Desktop/crypto_maniac/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sk/values-sk.xml",
             "map": [
                 {
                     "source": "/home/adi/.gradle/caches/transforms-2/files-2.1/2e94107f30f39be366a17347c2bf100b/core-1.1.0/res/values-sk/values-sk.xml",
