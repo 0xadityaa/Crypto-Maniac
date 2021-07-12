@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "382018290652",
+    "project_id": "crypto-maniac-f18ba",
+    "storage_bucket": "crypto-maniac-f18ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382018290652:android:b56df228b2d8f7b975c519",
+        "android_client_info": {
+          "package_name": "com.example.crypto_meniac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382018290652-rp107ajrrd1da44n1h83vhcpvickmfvv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crypto_meniac",
+            "certificate_hash": "90974336422035c1061a43ed6aae37fc7a1ac1fe"
+          }
+        },
+        {
+          "client_id": "382018290652-1it63166ercqm8aipangotflse5g26ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZv-o6-EEh4wBRe3E8TPXY5a9ZzMllgJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382018290652-1it63166ercqm8aipangotflse5g26ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
