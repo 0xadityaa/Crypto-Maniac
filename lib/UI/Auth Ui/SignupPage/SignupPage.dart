@@ -7,7 +7,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return createSignupPage(
-      imgPath: "assets/images/LG.png",
+      imgPath: "assets/images/SU.png",
       emailController: emailController,
       passwdController: passwdController,
       context: context,

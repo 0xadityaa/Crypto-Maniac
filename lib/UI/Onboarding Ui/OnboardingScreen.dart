@@ -1,4 +1,4 @@
-import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
+import 'package:crypto_meniac/UI/Auth%20Ui/SignupPage/SignupPage.dart';
 import 'package:flutter/material.dart';
 import 'OnboardingScreen_widgets.dart';
 

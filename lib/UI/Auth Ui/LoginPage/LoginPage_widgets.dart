@@ -60,8 +60,8 @@ Widget createLoginPage({
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            height: 46.0,
-                            width: 200.0,
+                            height: 50.0,
+                            width: 250.0,
                             decoration: BoxDecoration(
                               color: Color(0XFF347AF0),
                               borderRadius: BorderRadius.circular(30.0),
@@ -78,6 +78,37 @@ Widget createLoginPage({
                           ),
                         ),
                         SizedBox(height: 20.0),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 50.0,
+                            width: 250.0,
+                            decoration: BoxDecoration(
+                              color: Color(0XFF347AF0),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 1.0,
+                                ),
+                                Image.asset(
+                                  "assets/icons/google.png",
+                                  height: 40.0,
+                                ),
+                                Text(
+                                  " Continue with google",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 19.0,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -85,6 +116,9 @@ Widget createLoginPage({
                               "Don't have an account?",
                               style: TextStyle(
                                   fontSize: 15.0, color: Color(0XFF485068)),
+                            ),
+                            SizedBox(
+                              width: 3.0,
                             ),
                             GestureDetector(
                                 onTap: () {
