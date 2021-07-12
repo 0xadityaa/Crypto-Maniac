@@ -1,4 +1,6 @@
+import 'package:crypto_meniac/Firebase/Auth/googleSignIn.dart';
 import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
+import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';
 
 Widget createSignupPage({
@@ -93,7 +95,16 @@ Widget createSignupPage({
                         ),
                         SizedBox(height: 20.0),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            try {
+                              googleSignin().whenComplete(() =>
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage())));
+                            } catch (err) {
+                              print(err);
+                            }
+                          },
                           child: Container(
                             height: 50.0,
                             width: 250.0,
