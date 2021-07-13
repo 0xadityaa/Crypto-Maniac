@@ -62,13 +62,18 @@ Widget createLoginPage({
                         SizedBox(height: 50.0),
                         GestureDetector(
                           onTap: () {
-                            login(
-                              isLogin: true,
-                              email: emailController.text,
-                              password: passwdController.text,
-                            ).whenComplete(() => Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => HomePage())));
+                            if (emailController.text.isEmpty ||
+                                passwdController.text.isEmpty) {
+                              print("Empty input fields");
+                            } else {
+                              login(
+                                isLogin: true,
+                                email: emailController.text,
+                                password: passwdController.text,
+                              ).whenComplete(() => Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => HomePage())));
+                            }
                           },
                           child: Container(
                             height: 50.0,
