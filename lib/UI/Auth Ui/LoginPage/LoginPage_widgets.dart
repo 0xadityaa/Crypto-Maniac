@@ -1,3 +1,4 @@
+import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
 import 'package:crypto_meniac/UI/Auth%20Ui/SignupPage/SignupPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
@@ -60,7 +61,15 @@ Widget createLoginPage({
                         ),
                         SizedBox(height: 50.0),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            login(
+                              isLogin: true,
+                              email: emailController.text,
+                              password: passwdController.text,
+                            ).whenComplete(() => Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => HomePage())));
+                          },
                           child: Container(
                             height: 50.0,
                             width: 250.0,

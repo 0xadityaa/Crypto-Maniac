@@ -1,7 +1,11 @@
+import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
 import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';
+
+final fNameController = new TextEditingController();
+final lNameController = new TextEditingController();
 
 Widget createSignupPage({
   required String imgPath,
@@ -45,14 +49,14 @@ Widget createSignupPage({
                           height: 20.0,
                         ),
                         TextField(
-                          controller: emailController,
+                          controller: fNameController,
                           decoration: InputDecoration(
                             hintText: "First name",
                           ),
                         ),
                         SizedBox(height: 30.0),
                         TextField(
-                          controller: emailController,
+                          controller: lNameController,
                           decoration: InputDecoration(
                             hintText: "Last name",
                           ),
@@ -74,7 +78,19 @@ Widget createSignupPage({
                         ),
                         SizedBox(height: 30.0),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            try {
+                              login(
+                                isLogin: false,
+                                email: emailController.text,
+                                password: passwdController.text,
+                              ).whenComplete(() => Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => HomePage())));
+                            } catch (err) {
+                              print(err);
+                            }
+                          },
                           child: Container(
                             height: 50.0,
                             width: 250.0,

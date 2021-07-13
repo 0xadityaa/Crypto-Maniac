@@ -13,28 +13,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    // final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(user.photoURL!),
-          ),
-          Text("Name : " + user.displayName!),
-          Text("Email : " + user.email!),
-          Text("UserId : " + user.uid),
-          MaterialButton(
-            onPressed: () {
-              logOut().whenComplete(() => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginPage())));
-            },
-            color: Colors.blue,
-            child: Text("Logout"),
-          ),
-        ],
+      // body: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   children: [
+      //     CircleAvatar(
+      //       backgroundImage: NetworkImage(user.photoURL!),
+      //     ),
+      //     Text("Name : " + user.displayName!),
+      //     Text("Email : " + user.email!),
+      //     Text("UserId : " + user.uid),
+      body: Center(
+        child: MaterialButton(
+          onPressed: () {
+            logOut().whenComplete(() => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginPage())));
+          },
+          color: Colors.blue,
+          child: Text("Logout"),
+        ),
       ),
+      //   ],
+      // ),
     );
   }
 }
