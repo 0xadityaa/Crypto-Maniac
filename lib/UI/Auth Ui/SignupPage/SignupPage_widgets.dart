@@ -52,6 +52,7 @@ Widget createSignupPage({
                           controller: fNameController,
                           decoration: InputDecoration(
                             hintText: "First name",
+                            // errorText: "This field cannot be empty",
                           ),
                         ),
                         SizedBox(height: 30.0),
@@ -59,6 +60,7 @@ Widget createSignupPage({
                           controller: lNameController,
                           decoration: InputDecoration(
                             hintText: "Last name",
+                            // errorText: "This field cannot be empty",
                           ),
                         ),
                         SizedBox(height: 30.0),
@@ -66,6 +68,7 @@ Widget createSignupPage({
                           controller: emailController,
                           decoration: InputDecoration(
                             hintText: "Email address",
+                            // errorText: "This field cannot be empty",
                           ),
                         ),
                         SizedBox(height: 30.0),
@@ -74,21 +77,29 @@ Widget createSignupPage({
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Password",
+                            // errorText: "This field cannot be empty",
                           ),
                         ),
                         SizedBox(height: 30.0),
                         GestureDetector(
                           onTap: () {
-                            try {
-                              login(
-                                isLogin: false,
-                                email: emailController.text,
-                                password: passwdController.text,
-                              ).whenComplete(() => Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => HomePage())));
-                            } catch (err) {
-                              print(err);
+                            if (emailController.text.isEmpty ||
+                                passwdController.text.isEmpty ||
+                                fNameController.text.isEmpty ||
+                                lNameController.text.isEmpty) {
+                              print("Empty Text Fields");
+                            } else {
+                              try {
+                                login(
+                                  isLogin: false,
+                                  email: emailController.text,
+                                  password: passwdController.text,
+                                ).whenComplete(() => Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => HomePage())));
+                              } catch (err) {
+                                print(err);
+                              }
                             }
                           },
                           child: Container(
