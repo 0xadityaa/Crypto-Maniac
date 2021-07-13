@@ -1,3 +1,5 @@
+import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
+import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,14 @@ class _HomePageState extends State<HomePage> {
           Text("Name : " + user.displayName!),
           Text("Email : " + user.email!),
           Text("UserId : " + user.uid),
+          MaterialButton(
+            onPressed: () {
+              logOut().whenComplete(() => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginPage())));
+            },
+            color: Colors.blue,
+            child: Text("Logout"),
+          ),
         ],
       ),
     );

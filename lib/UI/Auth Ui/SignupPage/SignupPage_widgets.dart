@@ -1,4 +1,4 @@
-import 'package:crypto_meniac/Firebase/Auth/googleSignIn.dart';
+import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
 import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';

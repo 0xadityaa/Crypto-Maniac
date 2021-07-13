@@ -18,3 +18,8 @@ Future googleSignin() async {
 
   await FirebaseAuth.instance.signInWithCredential(credential);
 }
+
+Future logOut() async {
+  await googleSignIn.disconnect();
+  FirebaseAuth.instance.signOut();
+}
