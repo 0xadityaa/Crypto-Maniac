@@ -1,5 +1,5 @@
+import 'package:crypto_meniac/UI/Landing%20UI/LandingPage.dart';
 import 'package:flutter/material.dart';
-import 'UI/Onboarding Ui/OnboardingScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnboardingScreen1(),
+      home: LandingPage(),
     );
   }
 }
