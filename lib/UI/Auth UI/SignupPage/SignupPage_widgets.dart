@@ -1,5 +1,6 @@
 import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
+import 'package:crypto_meniac/UI/Auth%20UI/LoginPage/LoginPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -196,18 +197,9 @@ Widget createRegisterPage({
             Center(
               child: GestureDetector(
                 onTap: () {
-                  try {
-                    googleSignin().whenComplete(() => signinSucess = true);
-                  } catch (err) {
-                    print("Error, LOL😄" + err.toString());
-                    signinSucess = false;
-                  }
-                  signinSucess
-                      ? Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomePage()))
-                      : print("Error, LOL😄");
-                  // then((value) => Navigator.of(context).push(
-                  // MaterialPageRoute(builder: (context) => HomePage())));
+                  googleSignin().then((value) => Navigator.of(context)
+                      .pushReplacement(
+                          MaterialPageRoute(builder: (context) => HomePage())));
                 },
                 child: Container(
                   width: 250.0,
@@ -239,18 +231,25 @@ Widget createRegisterPage({
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Don't have an account? ",
+                  "Already have an account? ",
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Color(0XFFBDC1C6),
                   ),
                 ),
-                Text(
-                  "Register",
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0XFFBDC1C6)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                      .push(
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFFBDC1C6)),
+                  ),
                 ),
               ],
             ),

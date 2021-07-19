@@ -1,5 +1,6 @@
 import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
+import 'package:crypto_meniac/UI/Auth%20UI/SignupPage/SignupPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -220,12 +221,18 @@ Widget createLoginPage({
                     color: Color(0XFFBDC1C6),
                   ),
                 ),
-                Text(
-                  "Register",
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0XFFBDC1C6)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => SignupPage()));
+                  },
+                  child: Text(
+                    "Register",
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFFBDC1C6)),
+                  ),
                 ),
               ],
             ),
