@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
+import 'package:crypto_meniac/UI/Auth%20UI/LoginPage/LoginPage.dart';
+import 'package:crypto_meniac/UI/Auth%20UI/SignupPage/SignupPage.dart';
 import 'package:flutter/material.dart';
 
 Widget createLandingPage({
@@ -47,7 +48,10 @@ Widget createLandingPage({
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SignupPage()));
+              },
               child: Container(
                 width: 150.0,
                 height: 50.0,

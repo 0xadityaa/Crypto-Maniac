@@ -1,5 +1,5 @@
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
-import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
+import 'package:crypto_meniac/UI/Auth%20UI/LoginPage/LoginPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
