@@ -104,6 +104,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///home/adi/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-9.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_sign_in",
       "rootUri": "file:///home/adi/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.0.4",
       "packageUri": "lib/",
@@ -230,7 +236,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-07-13T03:51:11.772750Z",
+  "generated": "2021-07-16T13:31:41.255021Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

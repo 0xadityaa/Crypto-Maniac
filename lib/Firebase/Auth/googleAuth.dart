@@ -8,7 +8,7 @@ GoogleSignInAccount get user => _user!;
 
 Future googleSignin() async {
   final googleUser = await googleSignIn.signIn();
-  if (googleUser == null) return;
+  if (googleUser == null) return false;
   _user = googleUser;
 
   final googleAuth = await googleUser.authentication;
@@ -17,6 +17,7 @@ Future googleSignin() async {
       accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
   await FirebaseAuth.instance.signInWithCredential(credential);
+  return true;
 }
 
 Future logOut() async {

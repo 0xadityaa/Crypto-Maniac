@@ -7,6 +7,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return createLandingPage(
+        context: context,
         imgPath: "assets/images/LandingImg.png",
         bodyText:
             "\t\t\t\t\t\tKeeps track of all your\n\t\t\t\tcrypto assets and keeps\n\t\t\t\t\t\tyou updated with all the\n\t\t\t\t\t\tusefull crypto news to\nhelp you make better decisions");

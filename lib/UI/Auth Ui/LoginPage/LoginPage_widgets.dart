@@ -1,174 +1,374 @@
 import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
-import 'package:crypto_meniac/UI/Auth%20Ui/SignupPage/SignupPage.dart';
 import 'package:crypto_meniac/UI/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+bool signinSucess = false;
 Widget createLoginPage({
-  required String imgPath,
+  required String titleText,
+  required String subText1,
+  required String subText2,
   required TextEditingController emailController,
-  required TextEditingController passwdController,
+  required TextEditingController passwordController,
+  required bool isHidden,
   required BuildContext context,
-  // required Widget signupPage,
 }) {
   return Scaffold(
-    body: Container(
-      color: Colors.blue[300],
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                Center(
-                  child: Text("Welcome Back!",
-                      style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white)),
-                ),
-                Image.asset(
-                  imgPath,
-                  height: 350.0,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 40.0,
-                        ),
-                        TextField(
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            hintText: "Email address",
-                          ),
-                        ),
-                        SizedBox(height: 30.0),
-                        TextField(
-                          controller: passwdController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: "Password",
-                          ),
-                        ),
-                        SizedBox(height: 50.0),
-                        GestureDetector(
-                          onTap: () {
-                            if (emailController.text.isEmpty ||
-                                passwdController.text.isEmpty) {
-                              print("Empty input fields");
-                            } else {
-                              login(
-                                isLogin: true,
-                                email: emailController.text,
-                                password: passwdController.text,
-                              ).whenComplete(() => Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => HomePage())));
-                            }
-                          },
-                          child: Container(
-                            height: 50.0,
-                            width: 250.0,
-                            decoration: BoxDecoration(
-                              color: Color(0XFF347AF0),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 19.0,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        GestureDetector(
-                          onTap: () {
-                            try {
-                              googleSignin().whenComplete(() =>
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => HomePage())));
-                            } catch (err) {
-                              print(err);
-                            }
-                          },
-                          child: Container(
-                            height: 50.0,
-                            width: 250.0,
-                            decoration: BoxDecoration(
-                              color: Color(0XFF347AF0),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 1.0,
-                                ),
-                                Image.asset(
-                                  "assets/icons/google.png",
-                                  height: 40.0,
-                                ),
-                                Text(
-                                  " Continue with google",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 19.0,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account?",
-                              style: TextStyle(
-                                  fontSize: 15.0, color: Color(0XFF485068)),
-                            ),
-                            SizedBox(
-                              width: 3.0,
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => SignupPage()));
-                                },
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Color(0XFF347AF0),
-                                      fontWeight: FontWeight.w600),
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+    backgroundColor: Color(0XFF0B0D12),
+    appBar: AppBar(
+      elevation: 0.0,
+      automaticallyImplyLeading: false,
+      backgroundColor: Color(0XFF0B0D12),
+      title: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios,
+          size: 35.0,
         ),
       ),
     ),
+    body: Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 50.0),
+            Text(
+              titleText,
+              style: TextStyle(
+                fontSize: 35.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFFFFFFFF),
+              ),
+            ),
+            Text(
+              subText1,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0XFFBDC1C6)),
+            ),
+            Text(
+              subText2,
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0XFFBDC1C6)),
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Container(
+              width: 358.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                color: Color(0XFF2F384A),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: TextField(
+                  controller: emailController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Email",
+                      hintStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              width: 358.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                color: Color(0XFF2F384A),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: TextField(
+                  obscureText: true,
+                  controller: passwordController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Password",
+                      hintStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  if (emailController.text.isNotEmpty &&
+                      passwordController.text.isNotEmpty) {
+                    login(
+                            isLogin: true,
+                            email: emailController.text,
+                            password: passwordController.text)
+                        .whenComplete(() => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => HomePage())));
+                  } else {
+                    print("Error, LOL😄");
+                  }
+                },
+                child: Container(
+                  width: 250.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Color(0XFFFFFFFF),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Sign in",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Center(
+              child: Text(
+                "OR",
+                style: TextStyle(
+                  fontSize: 35.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(
+                    0XFFBDC1C6,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  try {
+                    googleSignin().whenComplete(() => signinSucess = true);
+                  } catch (err) {
+                    print("Error, LOL😄" + err.toString());
+                    signinSucess = false;
+                  }
+                  signinSucess
+                      ? Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomePage()))
+                      : print("Error, LOL😄");
+                  // then((value) => Navigator.of(context).push(
+                  // MaterialPageRoute(builder: (context) => HomePage())));
+                },
+                child: Container(
+                  width: 250.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Color(0XFFFFFFFF),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(FontAwesomeIcons.google),
+                      Text(
+                        "Continue with google",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account? ",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Color(0XFFBDC1C6),
+                  ),
+                ),
+                Text(
+                  "Register",
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0XFFBDC1C6)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+
+    // body: Center(
+    //   child: Column(
+    //     // mainAxisAlignment: MainAxisAlignment.end,
+    //     children: [
+    //       Text(
+    //         titleText,
+    //         style: TextStyle(
+    //           fontSize: 35.0,
+    //           fontWeight: FontWeight.bold,
+    //           color: Color(0XFFFFFFFF),
+    //         ),
+    //       ),
+    //       Text(
+    //         subText1,
+    //         style: TextStyle(
+    //             fontSize: 30.0,
+    //             fontWeight: FontWeight.w600,
+    //             color: Color(0XFFBDC1C6)),
+    //       ),
+    //       Text(
+    //         subText2,
+    //         style: TextStyle(
+    //             fontSize: 30.0,
+    //             fontWeight: FontWeight.w600,
+    //             color: Color(0XFFBDC1C6)),
+    //       ),
+    //       Container(
+    //         width: 358.0,
+    //         height: 60.0,
+    //         decoration: BoxDecoration(
+    //           color: Color(0XFF2F384A),
+    //           borderRadius: BorderRadius.circular(10.0),
+    //         ),
+    //         child: TextField(
+    //           controller: emailController,
+    //           decoration: InputDecoration(
+    //             hintText: "Email",
+    //           ),
+    //         ),
+    //       ),
+    //       Container(
+    //         width: 358.0,
+    //         height: 60.0,
+    //         decoration: BoxDecoration(
+    //           color: Color(0XFF2F384A),
+    //           borderRadius: BorderRadius.circular(10.0),
+    //         ),
+    //         child: Row(
+    //           children: [
+    //             TextField(
+    //               obscureText: isHidden,
+    //               controller: passwordController,
+    //               decoration: InputDecoration(
+    //                 hintText: "Password",
+    //               ),
+    //             ),
+    //             isHidden
+    //                 ? Icon(FontAwesomeIcons.eyeSlash)
+    //                 : Icon(FontAwesomeIcons.eye)
+    //           ],
+    //         ),
+    //       ),
+    //       GestureDetector(
+    //         onTap: () {},
+    //         child: Container(
+    //           width: 150.0,
+    //           height: 50.0,
+    //           decoration: BoxDecoration(
+    //             color: Color(0XFFFFFFFF),
+    //             borderRadius: BorderRadius.circular(20.0),
+    //           ),
+    //           child: Center(
+    //             child: Text(
+    //               "Sign in",
+    //               style: TextStyle(
+    //                   color: Colors.black,
+    //                   fontSize: 20.0,
+    //                   fontWeight: FontWeight.w600),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Text(
+    //         "OR",
+    //         style: TextStyle(
+    //           fontSize: 35.0,
+    //           fontWeight: FontWeight.bold,
+    //           color: Color(
+    //             0XFFBDC1C6,
+    //           ),
+    //         ),
+    //       ),
+    //       GestureDetector(
+    //         onTap: () {},
+    //         child: Container(
+    //           width: 150.0,
+    //           height: 50.0,
+    //           decoration: BoxDecoration(
+    //             color: Color(0XFFFFFFFF),
+    //             borderRadius: BorderRadius.circular(20.0),
+    //           ),
+    //           child: Row(
+    //             children: [
+    //               Icon(FontAwesomeIcons.google),
+    //               Text(
+    //                 "Continue with google",
+    //                 style: TextStyle(
+    //                     color: Colors.black,
+    //                     fontSize: 20.0,
+    //                     fontWeight: FontWeight.w600),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //       Row(
+    //         children: [
+    //           Text(
+    //             "Don't have an account?",
+    //             style: TextStyle(
+    //               fontSize: 20.0,
+    //               color: Color(0XFFBDC1C6),
+    //             ),
+    //           ),
+    //           Text(
+    //             "Register",
+    //             style: TextStyle(
+    //                 fontSize: 20.0,
+    //                 fontWeight: FontWeight.bold,
+    //                 color: Color(0XFFBDC1C6)),
+    //           ),
+    //         ],
+    //       ),
+    //     ],
+    //   ),
+    // ),
   );
 }

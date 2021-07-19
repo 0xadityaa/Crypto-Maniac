@@ -1,8 +1,13 @@
 import 'dart:ui';
 
+import 'package:crypto_meniac/UI/Auth%20Ui/LoginPage/LoginPage.dart';
 import 'package:flutter/material.dart';
 
-Widget createLandingPage({required String imgPath, required String bodyText}) {
+Widget createLandingPage({
+  required String imgPath,
+  required String bodyText,
+  required BuildContext context,
+}) {
   return Scaffold(
     backgroundColor: Color(0XFF0B0D12),
     appBar: AppBar(
@@ -51,12 +56,21 @@ Widget createLandingPage({required String imgPath, required String bodyText}) {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Center(
-                  child: Text("Register", style: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.w600),),
+                  child: Text(
+                    "Register",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              },
               child: Container(
                 width: 150.0,
                 height: 50.0,
@@ -65,7 +79,13 @@ Widget createLandingPage({required String imgPath, required String bodyText}) {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Center(
-                  child: Text("Login", style: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.w600),),
+                  child: Text(
+                    "Sign in",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
