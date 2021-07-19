@@ -1,7 +1,7 @@
 import 'package:crypto_meniac/Firebase/Auth/emailAuth.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
 import 'package:crypto_meniac/UI/Auth%20UI/LoginPage/LoginPage.dart';
-import 'package:crypto_meniac/UI/HomePage.dart';
+import 'package:crypto_meniac/UI/App%20UI/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
