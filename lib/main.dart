@@ -1,4 +1,4 @@
-import 'package:crypto_meniac/UI/App%20UI/HomePage.dart';
+import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage.dart';
 import 'package:crypto_meniac/UI/Landing%20UI/LandingPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
