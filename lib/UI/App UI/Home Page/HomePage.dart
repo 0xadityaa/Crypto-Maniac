@@ -1,3 +1,4 @@
+import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
 import 'package:crypto_meniac/UI/App%20UI/AccountPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage_widgets.dart';
@@ -16,18 +17,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    getTopCoins();
+  }
+
   int currentIndex = 0;
-  final screens = [
-    Container(
-      child: createHomePage(),
-    ),
-    MarketPage(),
-    NewsPage(),
-    PortfolioPage(),
-    AccountPage()
-  ];
+
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      Container(
+        child: createHomePage(
+          context: context,
+        ),
+      ),
+      MarketPage(),
+      NewsPage(),
+      PortfolioPage(),
+      AccountPage()
+    ];
     // final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       backgroundColor: Color(0XFF0B0D12),

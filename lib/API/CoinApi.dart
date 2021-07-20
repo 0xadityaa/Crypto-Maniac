@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-var topCoinsData;
+var topCoinsData = new Map<String, dynamic>();
 
 Future getTopCoins() async {
   final String url = "https://api.coingecko.com/api/v3/search/trending";
@@ -14,8 +14,8 @@ Future getTopCoins() async {
 
   if (response.statusCode == 200) {
     final Map<String, dynamic> parsedData = json.decode(response.body);
-    topCoinsData = parsedData['coins'][1]['item']['name'];
-    print(topCoinsData);
+    topCoinsData = parsedData;
+    // ['coins'][1]['item']['price_btc'];
   } else {
     print("ERROR in getTopCoins");
   }
