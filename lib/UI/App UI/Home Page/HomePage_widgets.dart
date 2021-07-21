@@ -251,13 +251,6 @@ Widget createHomePage({required BuildContext context}) {
                 color: Colors.white,
               ),
             ),
-            // MaterialButton(
-            //   onPressed: () {
-            //     getNewsData();
-            //   },
-            //   child: Text("GET REQUEST"),
-            //   color: Colors.blue,
-            // ),
             SizedBox(
               height: 20.0,
             ),
