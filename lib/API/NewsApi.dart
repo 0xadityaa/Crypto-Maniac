@@ -15,7 +15,6 @@ Future getNewsData() async {
   if (response.statusCode == 200) {
     final Map<String, dynamic> parsedData = json.decode(response.body);
     newsData = parsedData;
-    print(newsData['Data'][1]['title']);
     // ['data'][1]['title'];
   } else {
     print("ERROR in getNewsData");
