@@ -7149,6 +7149,7 @@ freely, subject to the following restrictions:
 --------------------------------------------------------------------------------
 google_sign_in
 plugin_platform_interface
+webview_flutter
 
 Copyright 2013 The Flutter Authors. All rights reserved.
 

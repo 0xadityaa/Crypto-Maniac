@@ -8,7 +8,9 @@ MERGED from /home/adi/Desktop/crypto_maniac/android/app/src/main/AndroidManifest
 MERGED from [:firebase_auth] /home/adi/Desktop/crypto_maniac/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:google_sign_in] /home/adi/Desktop/crypto_maniac/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:firebase_core] /home/adi/Desktop/crypto_maniac/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
+MERGED from [:webview_flutter] /home/adi/Desktop/crypto_maniac/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/39226147107c07d612c0b5c242740fda/jetified-firebase-auth-21.0.1/AndroidManifest.xml:17:1-83:12
+MERGED from [androidx.webkit:webkit:1.0.0] /home/adi/.gradle/caches/transforms-2/files-2.1/3cdd832d720c64d4c13f082f8cd31b9d/webkit-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:17:1-39:12
 MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/adi/.gradle/caches/transforms-2/files-2.1/0e17507564d174050b3fcf77f89792c9/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] /home/adi/.gradle/caches/transforms-2/files-2.1/a259cc2533c3f82706c94c31ad6608cd/jetified-play-services-auth-api-phone-17.4.0/AndroidManifest.xml:2:1-7:12
@@ -146,8 +148,12 @@ MERGED from [:google_sign_in] /home/adi/Desktop/crypto_maniac/build/google_sign_
 MERGED from [:google_sign_in] /home/adi/Desktop/crypto_maniac/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] /home/adi/Desktop/crypto_maniac/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] /home/adi/Desktop/crypto_maniac/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter] /home/adi/Desktop/crypto_maniac/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter] /home/adi/Desktop/crypto_maniac/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/39226147107c07d612c0b5c242740fda/jetified-firebase-auth-21.0.1/AndroidManifest.xml:21:5-44
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/39226147107c07d612c0b5c242740fda/jetified-firebase-auth-21.0.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] /home/adi/.gradle/caches/transforms-2/files-2.1/3cdd832d720c64d4c13f082f8cd31b9d/webkit-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] /home/adi/.gradle/caches/transforms-2/files-2.1/3cdd832d720c64d4c13f082f8cd31b9d/webkit-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/adi/.gradle/caches/transforms-2/files-2.1/0e17507564d174050b3fcf77f89792c9/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:5:5-44

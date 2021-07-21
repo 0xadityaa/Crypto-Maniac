@@ -1,5 +1,7 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/NewsApi.dart';
+import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage.dart';
+import 'package:crypto_meniac/UI/Web%20view%20UI/WebView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -157,7 +159,8 @@ Widget createHomePage({required BuildContext context}) {
                                   color: Color(0XFF2F384A),
                                   borderRadius: BorderRadius.circular(20.0)),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: NetworkImage(
@@ -168,7 +171,8 @@ Widget createHomePage({required BuildContext context}) {
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         topCoinsData['coins'][index]['item']
@@ -190,7 +194,8 @@ Widget createHomePage({required BuildContext context}) {
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -271,35 +276,43 @@ Widget createHomePage({required BuildContext context}) {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Container(
-                          height: 100,
-                          width: 355,
-                          decoration: BoxDecoration(
-                              color: Color(0XFF2F384A),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      newsData['Data'][index]['imageurl']),
-                                ),
-                                SizedBox(
-                                  width: 15.0,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    newsData['Data'][index]['title'] + "...",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            newsUrl = newsData['Data'][index]['url'];
+                            print(newsUrl);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => WebViewPage()));
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 355,
+                            decoration: BoxDecoration(
+                                color: Color(0XFF2F384A),
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        newsData['Data'][index]['imageurl']),
+                                  ),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      newsData['Data'][index]['title'] + "...",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
