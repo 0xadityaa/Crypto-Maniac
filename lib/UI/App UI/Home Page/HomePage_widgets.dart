@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/NewsApi.dart';
 import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage.dart';
@@ -5,6 +7,9 @@ import 'package:crypto_meniac/UI/Web%20view%20UI/WebView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:math';
+
+Random random = new Random();
 
 Widget createHomePage({required BuildContext context}) {
   return Container(
@@ -150,6 +155,7 @@ Widget createHomePage({required BuildContext context}) {
                         scrollDirection: Axis.vertical,
                         // shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
+                          int randomNumber = random.nextInt(20);
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Container(
@@ -222,8 +228,8 @@ Widget createHomePage({required BuildContext context}) {
                                         children: [
                                           Image.asset(
                                               "assets/icons/upRightArrow.png"),
-                                          Text(
-                                            " 12.6" + "%",
+                                          Text( " " +
+                                            randomNumber.toString() + "%",
                                             style: TextStyle(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.bold,
@@ -261,7 +267,7 @@ Widget createHomePage({required BuildContext context}) {
                 future: getNewsData(),
                 builder: (context, snapshot) {
                   if (newsData.isEmpty) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -296,7 +302,9 @@ Widget createHomePage({required BuildContext context}) {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      newsData['Data'][index]['title'] + "...",
+                                      newsData['Data'][index]['title'],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20.0,
