@@ -1,6 +1,6 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/Firebase/Auth/googleAuth.dart';
-import 'package:crypto_meniac/UI/App%20UI/AccountPage.dart';
+import 'package:crypto_meniac/UI/App%20UI/Account%20Page/AccountPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage_widgets.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/News%20Page/NewsPage.dart';

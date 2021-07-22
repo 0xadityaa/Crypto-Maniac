@@ -106,10 +106,15 @@ Widget createMarketPage({required TextEditingController searchController}) {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(
-                                          FontAwesomeIcons.rupeeSign,
-                                          color: Colors.white,
-                                        ),
+                                        currency == 'inr'
+                                            ? Icon(
+                                                FontAwesomeIcons.rupeeSign,
+                                                color: Colors.white,
+                                              )
+                                            : Icon(
+                                                FontAwesomeIcons.dollarSign,
+                                                color: Colors.white,
+                                              ),
                                         Text(
                                           " " +
                                               allCoinsData[index]

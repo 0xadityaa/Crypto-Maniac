@@ -228,8 +228,8 @@ Widget createHomePage({required BuildContext context}) {
                                         children: [
                                           Image.asset(
                                               "assets/icons/upRightArrow.png"),
-                                          Text( " " +
-                                            randomNumber.toString() + "%",
+                                          Text(
+                                            " " + randomNumber.toString() + "%",
                                             style: TextStyle(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.bold,
