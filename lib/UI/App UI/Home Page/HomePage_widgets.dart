@@ -9,6 +9,8 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math';
 
+import 'package:lottie/lottie.dart';
+
 Random random = new Random();
 
 Widget createHomePage({required BuildContext context}) {
@@ -146,7 +148,8 @@ Widget createHomePage({required BuildContext context}) {
                   builder: (context, snapshot) {
                     if (topCoinsData.isEmpty) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child:
+                            Lottie.asset("assets/animations/LoadingAnimation.json"),
                       );
                     }
                     return ListView.builder(
@@ -267,7 +270,9 @@ Widget createHomePage({required BuildContext context}) {
                 future: getNewsData(),
                 builder: (context, snapshot) {
                   if (newsData.isEmpty) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                        child:
+                            Lottie.asset("assets/animations/LoadingAnimation.json"));
                   }
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,

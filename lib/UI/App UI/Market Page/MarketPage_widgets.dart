@@ -2,6 +2,7 @@ import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 Widget createMarketPage({required TextEditingController searchController}) {
   return SafeArea(
@@ -51,7 +52,9 @@ Widget createMarketPage({required TextEditingController searchController}) {
                   future: getAllCoins(),
                   builder: (context, snapshot) {
                     if (allCoinsData.isEmpty) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(
+                          child: Lottie.asset(
+                              "assets/animations/LoadingAnimation.json"));
                     }
                     return ListView.builder(
                       itemCount: 245,
