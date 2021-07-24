@@ -4,7 +4,7 @@ import 'package:crypto_meniac/UI/App%20UI/Account%20Page/AccountPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage_widgets.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/News%20Page/NewsPage.dart';
-import 'package:crypto_meniac/UI/App%20UI/PortfolioPage.dart';
+import 'package:crypto_meniac/UI/App%20UI/Portfolio%20Page/PortfolioPage.dart';
 import 'package:crypto_meniac/UI/Auth%20UI/LoginPage/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

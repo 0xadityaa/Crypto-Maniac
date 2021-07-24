@@ -19,15 +19,5 @@ class _MarketPageState extends State<MarketPage> {
         searchController: searchController,
       ),
     );
-    // body: Center(
-    //     // child: MaterialButton(
-    //     //   onPressed: () {
-    //     //     getAllCoins();
-    //     //     print(allCoinsData[2]['id']);
-    //     //   },
-    //     //   child: Text("GET REQUEST"),
-    //     //   color: Colors.blue,
-    //     // ),
-    //     ));
   }
 }

@@ -15,7 +15,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   static final List<String> items = ['INR', 'USD'];
-  String value = items.first;
+  String selectedValue = items.first;
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -75,7 +75,7 @@ class _AccountPageState extends State<AccountPage> {
                     data: Theme.of(context)
                         .copyWith(canvasColor: Color(0XFF0B0D12)),
                     child: DropdownButton<String>(
-                      value: value,
+                      value: selectedValue,
                       items: items.map((item) {
                         return DropdownMenuItem<String>(
                           child: Text(
@@ -86,17 +86,19 @@ class _AccountPageState extends State<AccountPage> {
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() {
-                          this.value = value!;
-                          // print(_dropDownValue);
-                        });
+                        // setState(() {
+                        //   selectedValue = value!;
+                        //   // print(_dropDownValue);
+                        // });
                         if (value == "USD") {
                           setState(() {
+                            selectedValue = 'USD';
                             currency = 'usd';
                           });
                           print(currency);
                         } else {
                           setState(() {
+                            selectedValue = 'INR';
                             currency = 'inr';
                           });
                           print(currency);
@@ -148,6 +150,10 @@ class _AccountPageState extends State<AccountPage> {
                 logOut().whenComplete(() => Navigator.of(context)
                     .pushReplacement(
                         MaterialPageRoute(builder: (context) => LoginPage())));
+                // if (FirebaseAuth.instance.currentUser == null) {
+                //   Navigator.of(context).pushReplacement(
+                //       MaterialPageRoute(builder: (context) => LoginPage()));
+                // }
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

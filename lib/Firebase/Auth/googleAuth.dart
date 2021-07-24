@@ -21,6 +21,6 @@ Future googleSignin() async {
 }
 
 Future logOut() async {
-  await googleSignIn.disconnect();
   FirebaseAuth.instance.signOut();
+  await googleSignIn.disconnect();
 }
