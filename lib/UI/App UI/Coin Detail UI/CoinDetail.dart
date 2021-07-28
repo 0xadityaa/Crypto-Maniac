@@ -1,8 +1,13 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
+import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
+import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 int selectedIndex = 0;
+// String graphUrl =
+//     "https://in.tradingview.com/chart/?symbol=$selectedCoinId" + "USD";
 
 class CoinDetail extends StatefulWidget {
   const CoinDetail({Key? key}) : super(key: key);
@@ -95,7 +100,21 @@ class _CoinDetailState extends State<CoinDetail> {
             ],
           ),
           SizedBox(
-            height: 40.0,
+            height: 10.0,
+          ),
+          Container(
+            height: 420.0,
+            width: 360.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: WebView(
+              initialUrl: graphUrl,
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           Container(
             height: 150.0,
@@ -109,7 +128,9 @@ class _CoinDetailState extends State<CoinDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -178,29 +199,72 @@ class _CoinDetailState extends State<CoinDetail> {
                         ],
                       ),
                       Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text("24h lowest",
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white)),
-                      Text(
-                        "₹ " +
-                            allCoinsData[selectedIndex]['low_24h'].toString(),
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("24h lowest",
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white)),
+                          Text(
+                            "₹ " +
+                                allCoinsData[selectedIndex]['low_24h']
+                                    .toString(),
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
                     ],
                   ),
                 ],
               ),
             ),
           ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 50.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Center(
+                  child: Text(
+                    "BUY",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Center(
+                  child: Text(
+                    "SELL",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
