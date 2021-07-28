@@ -1,4 +1,5 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
+import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20UI/CoinDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -61,103 +62,114 @@ Widget createMarketPage({required TextEditingController searchController}) {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Container(
-                            height: 90.0,
-                            width: 355.0,
-                            decoration: BoxDecoration(
-                                color: Color(0XFF2F384A),
-                                borderRadius: BorderRadius.circular(20.0)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      allCoinsData[index]['image']),
-                                  // Image.network(
-                                  // topCoinsData['coins'][index]['item']['small'],)),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 100.0,
-                                      child: Expanded(
-                                        child: Text(
-                                          allCoinsData[index]['name'],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                          child: GestureDetector(
+                            onTap: () {
+                              selectedIndex = index;
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CoinDetail()));
+                            },
+                            child: Container(
+                              height: 90.0,
+                              width: 355.0,
+                              decoration: BoxDecoration(
+                                  color: Color(0XFF2F384A),
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        allCoinsData[index]['image']),
+                                    // Image.network(
+                                    // topCoinsData['coins'][index]['item']['small'],)),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 100.0,
+                                        child: Expanded(
+                                          child: Text(
+                                            allCoinsData[index]['name'],
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      allCoinsData[index]['symbol'].toString(),
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        currency == 'inr'
-                                            ? Icon(
-                                                FontAwesomeIcons.rupeeSign,
-                                                color: Colors.white,
-                                              )
-                                            : Icon(
-                                                FontAwesomeIcons.dollarSign,
-                                                color: Colors.white,
-                                              ),
-                                        Text(
-                                          " " +
-                                              allCoinsData[index]
-                                                      ['current_price']
-                                                  .toStringAsFixed(5),
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      children: [
-                                        allCoinsData[index][
-                                                    'price_change_percentage_24h_in_currency'] >
-                                                0
-                                            ? Image.asset(
-                                                "assets/icons/upRightArrow.png")
-                                            : Image.asset(
-                                                "assets/icons/downRightArrow.png"),
-                                        Text(
-                                          " " +
-                                              allCoinsData[index][
-                                                      'price_change_percentage_24h_in_currency']
-                                                  .toStringAsFixed(2) +
-                                              "%",
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
+                                      Text(
+                                        allCoinsData[index]['symbol']
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          currency == 'inr'
+                                              ? Icon(
+                                                  FontAwesomeIcons.rupeeSign,
+                                                  color: Colors.white,
+                                                )
+                                              : Icon(
+                                                  FontAwesomeIcons.dollarSign,
+                                                  color: Colors.white,
+                                                ),
+                                          Text(
+                                            " " +
+                                                allCoinsData[index]
+                                                        ['current_price']
+                                                    .toStringAsFixed(5),
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          allCoinsData[index][
+                                                      'price_change_percentage_24h_in_currency'] >
+                                                  0
+                                              ? Image.asset(
+                                                  "assets/icons/upRightArrow.png")
+                                              : Image.asset(
+                                                  "assets/icons/downRightArrow.png"),
+                                          Text(
+                                            " " +
+                                                allCoinsData[index][
+                                                        'price_change_percentage_24h_in_currency']
+                                                    .toStringAsFixed(2) +
+                                                "%",
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );
