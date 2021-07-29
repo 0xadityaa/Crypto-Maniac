@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/NewsApi.dart';
 import 'package:crypto_meniac/UI/App%20UI/Home%20Page/HomePage.dart';

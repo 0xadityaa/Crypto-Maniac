@@ -1,11 +1,11 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20UI/CoinDetail.dart';
-import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 String graphUrl = "";
+String selectedCoinId = "";
 
 class MarketPage extends StatefulWidget {
   const MarketPage({Key? key}) : super(key: key);
@@ -42,6 +42,9 @@ class _MarketPageState extends State<MarketPage> {
                       borderRadius: BorderRadius.circular(20.0)),
                   child: Center(
                     child: TextField(
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: Icon(
@@ -50,12 +53,14 @@ class _MarketPageState extends State<MarketPage> {
                           size: 18.0,
                         ),
                         hintText: "Search a crypto",
+                        // style: TextSt
                         hintStyle: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
                       ),
+                      // onChanged: searchCrypto,
                     ),
                   ),
                 ),
@@ -76,7 +81,7 @@ class _MarketPageState extends State<MarketPage> {
                                 "assets/animations/LoadingAnimation.json"));
                       }
                       return ListView.builder(
-                        itemCount: 245,
+                        itemCount: allCoinsData.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -161,7 +166,7 @@ class _MarketPageState extends State<MarketPage> {
                                               " " +
                                                   allCoinsData[index]
                                                           ['current_price']
-                                                      .toStringAsFixed(5),
+                                                      .toStringAsFixed(2),
                                               style: TextStyle(
                                                   fontSize: 20.0,
                                                   fontWeight: FontWeight.bold,
@@ -181,17 +186,46 @@ class _MarketPageState extends State<MarketPage> {
                                                     "assets/icons/upRightArrow.png")
                                                 : Image.asset(
                                                     "assets/icons/downRightArrow.png"),
-                                            Text(
-                                              " " +
-                                                  allCoinsData[index][
-                                                          'price_change_percentage_24h_in_currency']
-                                                      .toStringAsFixed(2) +
-                                                  "%",
-                                              style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.green),
-                                            )
+                                            // Text(
+                                            //   " " +
+                                            //       allCoinsData[index][
+                                            //               'price_change_percentage_24h_in_currency']
+                                            //           .toStringAsFixed(2) +
+                                            //       "%",
+                                            //   style: TextStyle(
+                                            //       fontSize: 15.0,
+                                            //       fontWeight: FontWeight.bold,
+                                            //       color: Colors.green),
+                                            // )
+                                            allCoinsData[index][
+                                                        'price_change_percentage_24h_in_currency'] >
+                                                    0
+                                                ? Text(
+                                                    " " +
+                                                        allCoinsData[index][
+                                                                'price_change_percentage_24h_in_currency']
+                                                            .toStringAsFixed(
+                                                                2) +
+                                                        "%",
+                                                    style: TextStyle(
+                                                        fontSize: 20.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green),
+                                                  )
+                                                : Text(
+                                                    " " +
+                                                        allCoinsData[index][
+                                                                'price_change_percentage_24h_in_currency']
+                                                            .toStringAsFixed(
+                                                                2) +
+                                                        "%",
+                                                    style: TextStyle(
+                                                        fontSize: 20.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.red),
+                                                  ),
                                           ],
                                         ),
                                       ],
