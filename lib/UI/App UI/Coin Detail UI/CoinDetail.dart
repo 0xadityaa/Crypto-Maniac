@@ -1,5 +1,7 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
+import 'package:crypto_meniac/Firebase/Firestore%20DB/addCoin.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -14,6 +16,8 @@ class CoinDetail extends StatefulWidget {
 }
 
 class _CoinDetailState extends State<CoinDetail> {
+  final addCoin = new AddCoin();
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,20 +252,32 @@ class _CoinDetailState extends State<CoinDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: 50.0,
-                  width: 100.0,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "BUY",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                GestureDetector(
+                  onTap: () {
+                    addCoin.add(
+                      uid: user.uid,
+                      coin_name: allCoinsData[selectedIndex]['name'],
+                      coin_id: allCoinsData[selectedIndex]['symbol'],
+                      buying_price: allCoinsData[selectedIndex]
+                          ['current_price'],
+                      quantity: 1,
+                    );
+                  },
+                  child: Container(
+                    height: 50.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "BUY",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
+                      ),
                     ),
                   ),
                 ),

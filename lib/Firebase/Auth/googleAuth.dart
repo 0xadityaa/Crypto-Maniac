@@ -19,7 +19,6 @@ Future googleSignin() async {
   await FirebaseAuth.instance.signInWithCredential(credential);
   return true;
 }
-
 Future logOut() async {
   FirebaseAuth.instance.signOut();
   await googleSignIn.disconnect();
