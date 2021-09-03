@@ -1,5 +1,7 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
+import 'package:crypto_meniac/API/MyCoinsAPI.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/addCoin.dart';
+import 'package:crypto_meniac/Firebase/Firestore%20DB/fetchData.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ class CoinDetail extends StatefulWidget {
 class _CoinDetailState extends State<CoinDetail> {
   final addCoin = new AddCoin();
   final user = FirebaseAuth.instance.currentUser!;
+  final fetchData = new FetchData();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,10 +260,11 @@ class _CoinDetailState extends State<CoinDetail> {
                     addCoin.add(
                       uid: user.uid,
                       coin_name: allCoinsData[selectedIndex]['name'],
-                      coin_id: allCoinsData[selectedIndex]['symbol'],
+                      coin_id: allCoinsData[selectedIndex]['id'],
                       buying_price: allCoinsData[selectedIndex]
                           ['current_price'],
                       quantity: 1,
+                      img_url: allCoinsData[selectedIndex]['image'],
                     );
                   },
                   child: Container(
@@ -281,20 +285,26 @@ class _CoinDetailState extends State<CoinDetail> {
                     ),
                   ),
                 ),
-                Container(
-                  height: 50.0,
-                  width: 100.0,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "SELL",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                GestureDetector(
+                  onTap: () {
+                    fetchData.getCoins();
+                    // getMyCoins();
+                  },
+                  child: Container(
+                    height: 50.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "SELL",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
+                      ),
                     ),
                   ),
                 ),

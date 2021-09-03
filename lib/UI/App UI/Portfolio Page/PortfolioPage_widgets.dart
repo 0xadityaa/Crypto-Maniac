@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meniac/API/CoinApi.dart';
+import 'package:crypto_meniac/Firebase/Firestore%20DB/fetchData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
+List<String> coinId = [];
+int i = 0;
 Widget createPortfolioPage() {
   return Scaffold(
     backgroundColor: Color(0XFF0B0D12),
@@ -171,109 +175,56 @@ Widget createPortfolioPage() {
           ),
           Container(
             height: 360.0,
-            child: FutureBuilder(
-                future: getTopCoins(),
+            child: StreamBuilder<QuerySnapshot>(
+                // <2> Pass `Stream<QuerySnapshot>` to stream
+                stream:
+                    FirebaseFirestore.instance.collection('coins').snapshots(),
                 builder: (context, snapshot) {
-                  if (topCoinsData.isEmpty) {
-                    return Center(
-                      child:
-                          Lottie.asset("assets/animations/LoadingAnimation.json"),
-                    );
-                  }
-                  return ListView.builder(
-                      itemCount: topCoinsData['coins'].length,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      // shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        // int randomNumber = random.nextInt(20);
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Container(
-                            height: 90.0,
-                            width: 355.0,
-                            decoration: BoxDecoration(
-                                color: Color(0XFF2F384A),
-                                borderRadius: BorderRadius.circular(20.0)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  if (snapshot.hasData) {
+                    // <3> Retrieve `List<DocumentSnapshot>` from snapshot
+                    final List<DocumentSnapshot> documents =
+                        snapshot.data!.docs;
+                    documents.map((e) => coinId += e['coin_name']);
+                    return ListView(
+                      children: documents
+                          .map(
+                            (doc) => Container(
+                                child: Row(
                               children: [
                                 CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      topCoinsData['coins'][index]['item']
-                                          ['small']),
-                                  // Image.network(
-                                  // topCoinsData['coins'][index]['item']['small'],)),
+                                  backgroundImage: NetworkImage(doc['img_url']),
                                 ),
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      topCoinsData['coins'][index]['item']
-                                          ['name'],
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      topCoinsData['coins'][index]['item']
-                                          ['symbol'],
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    )
+                                    Text(doc['coin_name'],
+                                        style: TextStyle(color: Colors.white)),
+                                    Text(doc['coin_id'],
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          FontAwesomeIcons.bitcoin,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          "  " +
-                                              topCoinsData['coins'][index]['item']
-                                                      ['price_btc']
-                                                  .toStringAsFixed(6),
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                            "assets/icons/upRightArrow.png"),
-                                        Text(
-                                          "10.23 " + "%",
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )
+                                Text(doc['quantity'].toString(),
+                                    style: TextStyle(color: Colors.white)),
+                                // Text(),
                               ],
-                            ),
-                          ),
-                        );
-                      });
+                            )),
+                          )
+                          .toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Its Error');
+                  }
+                  return Center(
+                    child:
+                        Lottie.asset("assets/animations/LoadingAnimation.json"),
+                  );
                 }),
           ),
+          // MaterialButton(
+          //     onPressed: () {
+          //       FetchData().getCoins();
+          //     },
+          //     child: Text("Press"),
+          //     color: Colors.blue)
         ],
       ),
     ),

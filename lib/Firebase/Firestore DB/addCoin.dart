@@ -10,8 +10,10 @@ class AddCoin {
     // ignore: non_constant_identifier_names
     required String coin_id,
     // ignore: non_constant_identifier_names
-    required int buying_price,
-    required int quantity,
+    required var buying_price,
+    required var quantity,
+    // ignore: non_constant_identifier_names
+    required String img_url,
   }) {
     return coins
         .add({
@@ -20,6 +22,7 @@ class AddCoin {
           'coin_id': coin_id,
           'buying_price': buying_price,
           'quantity': quantity,
+          'img_url': img_url,
         })
         .then((value) => print("Coin Added"))
         .catchError((error) => print("Failed to add coin: $error"));

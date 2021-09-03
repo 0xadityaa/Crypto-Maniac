@@ -222,27 +222,27 @@
 131        </service>
 132
 133        <activity
-133-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+133-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
 134            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-134-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+134-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
 135            android:excludeFromRecents="true"
-135-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+135-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
 136            android:exported="false"
-136-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+136-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
 137            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-137-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+137-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
 138        <!--
 139            Service handling Google Sign-In user revocation. For apps that do not integrate with
 140            Google Sign-In, this service will never be started.
 141        -->
 142        <service
-142-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+142-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
 143            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-143-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+143-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
 144            android:exported="true"
-144-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+144-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
 145            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
-145-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+145-->[com.google.android.gms:play-services-auth:16.0.1] /home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
 146
 147        <activity
 147-->[com.google.android.gms:play-services-base:17.1.0] /home/adi/.gradle/caches/transforms-2/files-2.1/93fbae78ce8dc134e45274d9cd223907/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75

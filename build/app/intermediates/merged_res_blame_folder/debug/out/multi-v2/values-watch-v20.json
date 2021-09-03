@@ -4,7 +4,7 @@
             "outputFile": "/home/adi/Desktop/crypto_maniac/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/home/adi/.gradle/caches/transforms-2/files-2.1/fe455be19bab61be0f6e88d52af4780f/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
+                    "source": "/home/adi/.gradle/caches/transforms-2/files-2.1/10bb1eb4cebd0c68d88042dbe6485bcc/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
