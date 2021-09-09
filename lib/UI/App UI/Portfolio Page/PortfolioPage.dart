@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/RealtimePrice.dart';
+import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20Page/CoinDetail.dart';
 import 'package:crypto_meniac/UI/App%20UI/Portfolio%20Page/PortfolioPage_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 String coinId = "";
-int i = 0;
 
-// TODO : implemented a minor logic for solving index error testing on device is left
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({Key? key}) : super(key: key);
 
@@ -219,13 +219,14 @@ class _PortfolioPageState extends State<PortfolioPage> {
                               responseFormAPI = snapshot.data;
                               print(responseFormAPI['current_price']);
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Container(
                                   height: 90.0,
                                   width: 355.0,
                                   decoration: BoxDecoration(
                                       color: Color(0XFF2F384A),
-                                      borderRadius: BorderRadius.circular(20.0)),
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -239,11 +240,28 @@ class _PortfolioPageState extends State<PortfolioPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(data.docs[index]['coin_name'],
-                                              style:
-                                                  TextStyle(color: Colors.white)),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
                                           Text(data.docs[index]['coin_id'],
-                                              style:
-                                                  TextStyle(color: Colors.white)),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("QTY",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          Text(
+                                              "X " +
+                                                  data.docs[index]['quantity']
+                                                      .toString(),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
                                         ],
                                       ),
                                       Column(
@@ -252,7 +270,8 @@ class _PortfolioPageState extends State<PortfolioPage> {
                                         children: [
                                           Text(
                                               "₹ " +
-                                                  responseFormAPI['current_price']
+                                                  responseFormAPI[
+                                                          'current_price']
                                                       .toString(),
                                               style: TextStyle(
                                                   color: Colors.white,

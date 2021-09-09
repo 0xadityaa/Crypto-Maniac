@@ -1,5 +1,5 @@
 import 'package:crypto_meniac/API/CoinApi.dart';
-import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20UI/CoinDetail.dart';
+import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20Page/CoinDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';

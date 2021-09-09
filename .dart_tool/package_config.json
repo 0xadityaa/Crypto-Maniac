@@ -140,6 +140,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "get",
+      "rootUri": "file:///home/adi/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.3.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_sign_in",
       "rootUri": "file:///home/adi/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.0.4",
       "packageUri": "lib/",
@@ -290,7 +296,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-08-24T04:07:12.865886Z",
+  "generated": "2021-09-06T09:34:00.313161Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }
