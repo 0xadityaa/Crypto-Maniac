@@ -350,20 +350,25 @@ class _CoinDetailState extends State<CoinDetail> {
                       fetchData.getCoins();
                       // getMyCoins();
                     },
-                    child: Container(
-                      height: 50.0,
-                      width: 100.0,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SELL",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        checkIfCoinExists();
+                      },
+                      child: Container(
+                        height: 50.0,
+                        width: 100.0,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "SELL",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
                         ),
                       ),
                     ),
@@ -391,6 +396,7 @@ Future<void> _displayTextInputDialog(BuildContext context) async {
         ),
         backgroundColor: Color(0XFF2F384A),
         content: TextField(
+          style: TextStyle(color: Colors.white),
           controller: _textFieldController,
           decoration: InputDecoration(
             hintText: "Input Quantity",
@@ -420,13 +426,6 @@ Future<void> _displayTextInputDialog(BuildContext context) async {
                   duration: Duration(seconds: 5),
                 );
               } else {
-                // FirebaseFirestore.instance
-                //     .collection('coins')
-                //     .where(
-                //       'coin_name',
-                //       isEqualTo: allCoinsData[selectedIndex]['name'],
-                //     )
-                //     .update();
                 addCoin
                     .add(
                       uid: user.uid,
@@ -456,4 +455,22 @@ Future<void> _displayTextInputDialog(BuildContext context) async {
       );
     },
   );
+}
+
+// TODO : Impliment Coin Updating Logic
+checkIfCoinExists() {
+  FirebaseFirestore.instance
+      .collection('coins')
+      .where(
+        'coin_name',
+        isEqualTo: allCoinsData[selectedIndex]['name'],
+      )
+      .get()
+      .then((QuerySnapshot querySnapshot) {
+    if (querySnapshot.isNull) {
+      return false;
+    } else {
+      return true;
+    }
+  });
 }
