@@ -24,18 +24,19 @@ class _MarketPageState extends State<MarketPage> {
     //     searchController: searchController,
     //   ),
     // );
-    return SafeArea(
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Color(0XFF0B0D12),
+      body: SingleChildScrollView(
         child: Container(
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 10.0,
+                height: 35.0,
               ),
               Center(
                 child: Container(
-                  height: 55.0,
+                  height: 50.0,
                   width: 355.0,
                   decoration: BoxDecoration(
                       color: Color(0XFF96839D),
@@ -64,9 +65,6 @@ class _MarketPageState extends State<MarketPage> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

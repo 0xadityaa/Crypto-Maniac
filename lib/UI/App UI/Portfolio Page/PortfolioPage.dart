@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/RealtimePrice.dart';
 import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20Page/CoinDetail.dart';
+import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/Portfolio%20Page/PortfolioPage_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 String coinId = "";
 
@@ -209,7 +211,6 @@ class _PortfolioPageState extends State<PortfolioPage> {
                       // });
                       // print(data.size);
                       // i++;
-
                       return FutureBuilder(
                           future: getRealtimePrice(
                               coinId: data.docs[index]['coin_id']),
@@ -219,105 +220,131 @@ class _PortfolioPageState extends State<PortfolioPage> {
                               responseFormAPI = snapshot.data;
                               print(responseFormAPI['current_price']);
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Container(
-                                  height: 90.0,
-                                  width: 355.0,
-                                  decoration: BoxDecoration(
-                                      color: Color(0XFF2F384A),
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                            data.docs[index]['img_url']),
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Slidable(
+                                    key: const ValueKey(0),
+                                    endActionPane: const ActionPane(
+                                      motion: DrawerMotion(),
+                                      // actionExtentRatio: 0.50,
+                                      // dismissible: DismissiblePane(onDismissed: () {}),
+                                      children: [
+                                        // FIXME: make slide bar options wider
+                                        SlidableAction(
+                                          // An action can be bigger than the others.
+                                          flex: 4,
+                                          onPressed: buyMore,
+                                          backgroundColor: Colors.red,
+                                          foregroundColor: Colors.white,
+                                          // icon: Icons.archive,
+                                          label: 'Sell',
+                                        ),
+                                      ],
+                                    ),
+                                    child: Container(
+                                      height: 90.0,
+                                      width: 355.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0XFF2F384A),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
-                                      Column(
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(data.docs[index]['coin_name'],
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          Text(data.docs[index]['coin_id'],
-                                              style: TextStyle(
-                                                  color: Colors.white)),
+                                          CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                data.docs[index]['img_url']),
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  data.docs[index]['coin_name'],
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              Text(data.docs[index]['coin_id'],
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("QTY",
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              Text(
+                                                  "X " +
+                                                      data.docs[index]
+                                                              ['quantity']
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  "₹ " +
+                                                      responseFormAPI[
+                                                              'current_price']
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20.0)),
+                                              responseFormAPI[
+                                                          'price_change_percentage_24h'] >
+                                                      0
+                                                  ? Row(
+                                                      children: [
+                                                        Image.asset(
+                                                            "assets/icons/upRightArrow.png"),
+                                                        Text(
+                                                            responseFormAPI[
+                                                                        'price_change_percentage_24h']
+                                                                    .toStringAsFixed(
+                                                                        2) +
+                                                                " %",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .green,
+                                                                fontSize:
+                                                                    15.0)),
+                                                      ],
+                                                    )
+                                                  : Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Image.asset(
+                                                            "assets/icons/downRightArrow.png"),
+                                                        Text(
+                                                            responseFormAPI[
+                                                                        'price_change_percentage_24h']
+                                                                    .toStringAsFixed(
+                                                                        2) +
+                                                                " %",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red,
+                                                                fontSize:
+                                                                    15.0)),
+                                                      ],
+                                                    ),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text("QTY",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          Text(
-                                              "X " +
-                                                  data.docs[index]['quantity']
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                              "₹ " +
-                                                  responseFormAPI[
-                                                          'current_price']
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20.0)),
-                                          responseFormAPI[
-                                                      'price_change_percentage_24h'] >
-                                                  0
-                                              ? Row(
-                                                  children: [
-                                                    Image.asset(
-                                                        "assets/icons/upRightArrow.png"),
-                                                    Text(
-                                                        responseFormAPI[
-                                                                    'price_change_percentage_24h']
-                                                                .toStringAsFixed(
-                                                                    2) +
-                                                            " %",
-                                                        style: TextStyle(
-                                                            color: Colors.green,
-                                                            fontSize: 15.0)),
-                                                  ],
-                                                )
-                                              : Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Image.asset(
-                                                        "assets/icons/downRightArrow.png"),
-                                                    Text(
-                                                        responseFormAPI[
-                                                                    'price_change_percentage_24h']
-                                                                .toStringAsFixed(
-                                                                    2) +
-                                                            " %",
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontSize: 15.0)),
-                                                  ],
-                                                ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
+                                    ),
+                                  ));
                             } else {
                               return Center(
                                 child: Lottie.asset(
@@ -394,10 +421,16 @@ class _PortfolioPageState extends State<PortfolioPage> {
               //     },
               //     child: Text("Press"),
               //     color: Colors.blue)
-            )
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+// TODO: Impliment redirection to market page
+void buyMore(BuildContext context) {
+  Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => MarketPage()));
 }
