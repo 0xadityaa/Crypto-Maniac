@@ -5,6 +5,7 @@ import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/MyCoinsAPI.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/addCoin.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/fetchData.dart';
+import 'package:crypto_meniac/Firebase/Firestore%20DB/updateCoin.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,12 @@ import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 TextEditingController _textFieldController = TextEditingController();
+TextEditingController _textFieldController2 = TextEditingController();
 int selectedIndex = 0;
 int quantity = 0;
+int dbIndex = 0;
 final addCoin = new AddCoin();
+final updateCoin = new UpdateCoin();
 final user = FirebaseAuth.instance.currentUser!;
 final fetchData = new FetchData();
 List<Object?> data = [];
@@ -359,11 +363,15 @@ class _CoinDetailState extends State<CoinDetail> {
                         await getData();
                         print(checkIfCoinExists());
                         if (checkIfCoinExists()) {
-
+                          updateCoin.findDoc(
+                              coinName: allCoinsData[selectedIndex]['name']);
+                          // If selling quantity is less than users holdings
+                          _displaySellInputDialog(context);
                         } else {
                           Get.snackbar(
                             "\tError",
-                            "\tYou don't own any " + allCoinsData[selectedIndex]['name'],
+                            "\tYou don't own any " +
+                                allCoinsData[selectedIndex]['name'],
                             snackPosition: SnackPosition.TOP,
                             backgroundColor: Color(0XFF96839D),
                             icon: Image.asset(
@@ -492,7 +500,7 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
         backgroundColor: Color(0XFF2F384A),
         content: TextField(
           style: TextStyle(color: Colors.white),
-          controller: _textFieldController,
+          controller: _textFieldController2,
           decoration: InputDecoration(
             hintText: "Input Quantity",
             hintStyle: TextStyle(color: Colors.white),
@@ -508,8 +516,8 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
           MaterialButton(
             child: Text('OK', style: TextStyle(color: Colors.white)),
             onPressed: () {
-              quantity = int.parse(_textFieldController.text);
-              if (quantity == 0 || _textFieldController.text.isEmpty) {
+              quantity = int.parse(_textFieldController2.text);
+              if (_textFieldController2.text.isEmpty) {
                 Navigator.pop(context);
                 Get.snackbar(
                   "\tError",
@@ -521,16 +529,9 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
                   duration: Duration(seconds: 5),
                 );
               } else {
-                addCoin
-                    .add(
-                      uid: user.uid,
-                      coin_name: allCoinsData[selectedIndex]['name'],
-                      coin_id: allCoinsData[selectedIndex]['id'],
-                      buying_price: allCoinsData[selectedIndex]
-                          ['current_price'],
-                      quantity: quantity,
-                      img_url: allCoinsData[selectedIndex]['image'],
-                    )
+                updateCoin
+                    .update(
+                        quantity: _textFieldController2.text, docID: tempDocID)
                     .whenComplete(() => Get.snackbar(
                           "\tSuccess",
                           "\tTransaction sucsessful",
@@ -552,10 +553,10 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
   );
 }
 
-
 bool checkIfCoinExists() {
   for (int i = 0; i < myCoins.length; i++) {
     if (myCoins[i].containsValue(allCoinsData[selectedIndex]['name'])) {
+      // dbIndex = myCoins[i];
       return true;
     }
   }
