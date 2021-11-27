@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/MyCoinsAPI.dart';
@@ -16,6 +18,8 @@ int quantity = 0;
 final addCoin = new AddCoin();
 final user = FirebaseAuth.instance.currentUser!;
 final fetchData = new FetchData();
+List<Object?> data = [];
+Map<dynamic, dynamic> myCoins = new Map<dynamic, dynamic>();
 
 class CoinDetail extends StatefulWidget {
   const CoinDetail({Key? key}) : super(key: key);
@@ -263,7 +267,7 @@ class _CoinDetailState extends State<CoinDetail> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _displayTextInputDialog(context);
+                      _displayPurchaseInputDialog(context);
                       // Get.defaultDialog(
                       //     barrierDismissible: false,
                       //     title: "Select the quantity of purchase",
@@ -351,8 +355,23 @@ class _CoinDetailState extends State<CoinDetail> {
                       // getMyCoins();
                     },
                     child: GestureDetector(
-                      onTap: () {
-                        checkIfCoinExists();
+                      onTap: () async {
+                        await getData();
+                        print(checkIfCoinExists());
+                        if (checkIfCoinExists()) {
+
+                        } else {
+                          Get.snackbar(
+                            "\tError",
+                            "\tYou don't own any " + allCoinsData[selectedIndex]['name'],
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Color(0XFF96839D),
+                            icon: Image.asset(
+                                "assets/icons/Snackbar_cross_icon.png"),
+                            colorText: Colors.white,
+                            duration: Duration(seconds: 5),
+                          );
+                        }
                       },
                       child: Container(
                         height: 50.0,
@@ -383,7 +402,7 @@ class _CoinDetailState extends State<CoinDetail> {
   }
 }
 
-Future<void> _displayTextInputDialog(BuildContext context) async {
+Future<void> _displayPurchaseInputDialog(BuildContext context) async {
   return showDialog(
     context: context,
     builder: (context) {
@@ -458,19 +477,101 @@ Future<void> _displayTextInputDialog(BuildContext context) async {
 }
 
 // TODO : Impliment Coin Updating Logic
-checkIfCoinExists() {
-  FirebaseFirestore.instance
-      .collection('coins')
-      .where(
-        'coin_name',
-        isEqualTo: allCoinsData[selectedIndex]['name'],
-      )
-      .get()
-      .then((QuerySnapshot querySnapshot) {
-    if (querySnapshot.isNull) {
-      return false;
-    } else {
+// FIXME: Make a Logical condition to check if coin exists in database
+Future<void> _displaySellInputDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(
+          'How much ' +
+              allCoinsData[selectedIndex]['name'] +
+              " would you like to Sell?",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0XFF2F384A),
+        content: TextField(
+          style: TextStyle(color: Colors.white),
+          controller: _textFieldController,
+          decoration: InputDecoration(
+            hintText: "Input Quantity",
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            child: Text('CANCEL', style: TextStyle(color: Colors.white)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          MaterialButton(
+            child: Text('OK', style: TextStyle(color: Colors.white)),
+            onPressed: () {
+              quantity = int.parse(_textFieldController.text);
+              if (quantity == 0 || _textFieldController.text.isEmpty) {
+                Navigator.pop(context);
+                Get.snackbar(
+                  "\tError",
+                  "\tPlease input a valid quantity",
+                  snackPosition: SnackPosition.TOP,
+                  backgroundColor: Color(0XFF96839D),
+                  icon: Image.asset("assets/icons/Snackbar_cross_icon.png"),
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 5),
+                );
+              } else {
+                addCoin
+                    .add(
+                      uid: user.uid,
+                      coin_name: allCoinsData[selectedIndex]['name'],
+                      coin_id: allCoinsData[selectedIndex]['id'],
+                      buying_price: allCoinsData[selectedIndex]
+                          ['current_price'],
+                      quantity: quantity,
+                      img_url: allCoinsData[selectedIndex]['image'],
+                    )
+                    .whenComplete(() => Get.snackbar(
+                          "\tSuccess",
+                          "\tTransaction sucsessful",
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Color(0XFF96839D),
+                          colorText: Colors.white,
+                          icon: Image.asset(
+                              "assets/icons/Snackbar_tick_icon.png"),
+                          duration: Duration(seconds: 5),
+                        ));
+                // print(_textFieldController.text);
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+bool checkIfCoinExists() {
+  for (int i = 0; i < myCoins.length; i++) {
+    if (myCoins[i].containsValue(allCoinsData[selectedIndex]['name'])) {
       return true;
     }
-  });
+  }
+  return false;
+}
+
+Future<void> getData() async {
+  CollectionReference _collectionRef =
+      FirebaseFirestore.instance.collection('coins');
+  // Get docs from collection reference
+  QuerySnapshot querySnapshot = await _collectionRef.get();
+
+  // Get data from docs and convert map to List
+
+  final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+  data = allData;
+  myCoins = data.asMap();
+  print(myCoins);
 }
