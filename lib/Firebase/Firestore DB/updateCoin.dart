@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20Page/CoinDetail.dart';
 
 // TODO : Impliment Coin Updating Logic
-var tempDocID;
 
 class UpdateCoin {
   CollectionReference coins = FirebaseFirestore.instance.collection('coins');
@@ -19,10 +19,10 @@ class UpdateCoin {
 
   Future<void> update({required String quantity, required var docID}) {
     CollectionReference users = FirebaseFirestore.instance.collection('coins');
-    return users
+    return coins
         .doc("$tempDocID")
         .update({'quantity': "$quantity"})
         .then((value) => print("Coin quantity Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .catchError((error) => print("Failed to update Coin: $error"));
   }
 }

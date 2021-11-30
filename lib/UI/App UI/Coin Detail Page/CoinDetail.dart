@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/MyCoinsAPI.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/addCoin.dart';
+import 'package:crypto_meniac/Firebase/Firestore%20DB/deleteCoin.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/fetchData.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/updateCoin.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
@@ -16,10 +17,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 TextEditingController _textFieldController = TextEditingController();
 TextEditingController _textFieldController2 = TextEditingController();
 int selectedIndex = 0;
-int quantity = 0;
+int newQuantity = 0;
 int dbIndex = 0;
+var tempDocID;
 final addCoin = new AddCoin();
 final updateCoin = new UpdateCoin();
+final deleteCoin = new DeleteCoin();
 final user = FirebaseAuth.instance.currentUser!;
 final fetchData = new FetchData();
 List<Object?> data = [];
@@ -34,6 +37,19 @@ class CoinDetail extends StatefulWidget {
 
 class _CoinDetailState extends State<CoinDetail> {
   @override
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    for (int i = 0; i < myCoins.length; i++) {
+      if (myCoins[i].containsValue(allCoinsData[selectedIndex]['name'])) {
+        setState(() {
+          dbIndex = i;
+        });
+      }
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF0B0D12),
@@ -363,9 +379,6 @@ class _CoinDetailState extends State<CoinDetail> {
                         await getData();
                         print(checkIfCoinExists());
                         if (checkIfCoinExists()) {
-                          updateCoin.findDoc(
-                              coinName: allCoinsData[selectedIndex]['name']);
-                          // If selling quantity is less than users holdings
                           _displaySellInputDialog(context);
                         } else {
                           Get.snackbar(
@@ -440,8 +453,8 @@ Future<void> _displayPurchaseInputDialog(BuildContext context) async {
           MaterialButton(
             child: Text('OK', style: TextStyle(color: Colors.white)),
             onPressed: () {
-              quantity = int.parse(_textFieldController.text);
-              if (quantity == 0 || _textFieldController.text.isEmpty) {
+              newQuantity = int.parse(_textFieldController.text);
+              if (newQuantity == 0 || _textFieldController.text.isEmpty) {
                 Navigator.pop(context);
                 Get.snackbar(
                   "\tError",
@@ -460,7 +473,7 @@ Future<void> _displayPurchaseInputDialog(BuildContext context) async {
                       coin_id: allCoinsData[selectedIndex]['id'],
                       buying_price: allCoinsData[selectedIndex]
                           ['current_price'],
-                      quantity: quantity,
+                      quantity: newQuantity.toString(),
                       img_url: allCoinsData[selectedIndex]['image'],
                     )
                     .whenComplete(() => Get.snackbar(
@@ -514,39 +527,93 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
             },
           ),
           MaterialButton(
-            child: Text('OK', style: TextStyle(color: Colors.white)),
-            onPressed: () {
-              quantity = int.parse(_textFieldController2.text);
-              if (_textFieldController2.text.isEmpty) {
-                Navigator.pop(context);
-                Get.snackbar(
-                  "\tError",
-                  "\tPlease input a valid quantity",
-                  snackPosition: SnackPosition.TOP,
-                  backgroundColor: Color(0XFF96839D),
-                  icon: Image.asset("assets/icons/Snackbar_cross_icon.png"),
-                  colorText: Colors.white,
-                  duration: Duration(seconds: 5),
-                );
-              } else {
-                updateCoin
-                    .update(
-                        quantity: _textFieldController2.text, docID: tempDocID)
-                    .whenComplete(() => Get.snackbar(
-                          "\tSuccess",
-                          "\tTransaction sucsessful",
-                          snackPosition: SnackPosition.TOP,
-                          backgroundColor: Color(0XFF96839D),
-                          colorText: Colors.white,
-                          icon: Image.asset(
-                              "assets/icons/Snackbar_tick_icon.png"),
-                          duration: Duration(seconds: 5),
-                        ));
-                // print(_textFieldController.text);
-                Navigator.pop(context);
-              }
-            },
-          ),
+              child: Text('OK', style: TextStyle(color: Colors.white)),
+              onPressed: () async {
+                // print("test 1 : ${myCoins[dbIndex]['quantity'].runtimeType}");
+                newQuantity = int.parse(_textFieldController2.text);
+                int oldQuantity = int.parse(myCoins[dbIndex]['quantity']);
+                print("final coin: $oldQuantity");
+                if (newQuantity != 0 || _textFieldController2.text.isNotEmpty) {
+                  if (newQuantity < oldQuantity) {
+                    await updateCoin.findDoc(
+                        coinName: allCoinsData[selectedIndex]['name']);
+                    int newQty = oldQuantity - newQuantity;
+                    print(" Print 6 :$newQty");
+                    updateCoin
+                        .update(quantity: newQty.toString(), docID: tempDocID)
+                        .whenComplete(() => Get.snackbar(
+                              "\tSuccess",
+                              "\tTransaction sucsessful",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Color(0XFF96839D),
+                              colorText: Colors.white,
+                              icon: Image.asset(
+                                  "assets/icons/Snackbar_tick_icon.png"),
+                              duration: Duration(seconds: 5),
+                            ));
+                    Navigator.pop(context);
+                  } else if (newQuantity == oldQuantity) {
+                    deleteCoin
+                        .delete(docID: tempDocID)
+                        .whenComplete(() => Get.snackbar(
+                              "\tSuccess",
+                              "\tTransaction sucsessful",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Color(0XFF96839D),
+                              colorText: Colors.white,
+                              icon: Image.asset(
+                                  "assets/icons/Snackbar_tick_icon.png"),
+                              duration: Duration(seconds: 5),
+                            ));
+                    Navigator.pop(context);
+                  } else {
+                    Get.snackbar(
+                      "\tError",
+                      "\tYou don't own that much " +
+                          allCoinsData[selectedIndex]['name'],
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Color(0XFF96839D),
+                      icon: Image.asset("assets/icons/Snackbar_cross_icon.png"),
+                      colorText: Colors.white,
+                      duration: Duration(seconds: 5),
+                    );
+                  }
+                } else {
+                  Navigator.pop(context);
+                  Get.snackbar(
+                    "\tError",
+                    "\tPlease input a valid quantity",
+                    snackPosition: SnackPosition.TOP,
+                    backgroundColor: Color(0XFF96839D),
+                    icon: Image.asset("assets/icons/Snackbar_cross_icon.png"),
+                    colorText: Colors.white,
+                    duration: Duration(seconds: 5),
+                  );
+                }
+
+                // if (_textFieldController2.text.isEmpty) {
+
+                //   if (quantity < int.parse(myCoins[dbIndex].quantity)) {
+                //   }
+                //   if (quantity == int.parse(myCoins[dbIndex].quantity)) {
+                //     // TODO: Delete doc Code here
+                //     // FIXME: logical bug for removal of wrong index of coins
+
+                //   }
+                //   Navigator.pop(context);
+                // } else {
+                //   Get.snackbar(
+                //     "\tError",
+                //     "\tYou don't own that much " +
+                //         allCoinsData[selectedIndex]['name'],
+                //     snackPosition: SnackPosition.TOP,
+                //     backgroundColor: Color(0XFF96839D),
+                //     icon: Image.asset("assets/icons/Snackbar_cross_icon.png"),
+                //     colorText: Colors.white,
+                //     duration: Duration(seconds: 5),
+                //   );
+                // }
+              }),
         ],
       );
     },
@@ -556,7 +623,7 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
 bool checkIfCoinExists() {
   for (int i = 0; i < myCoins.length; i++) {
     if (myCoins[i].containsValue(allCoinsData[selectedIndex]['name'])) {
-      // dbIndex = myCoins[i];
+      dbIndex = i;
       return true;
     }
   }
@@ -574,5 +641,5 @@ Future<void> getData() async {
   final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
   data = allData;
   myCoins = data.asMap();
-  print(myCoins);
+  print("Print 8 :$myCoins");
 }
