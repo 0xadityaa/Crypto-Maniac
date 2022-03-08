@@ -60,10 +60,10 @@ Widget createHomePage({required BuildContext context}) {
                         ),
                         Center(
                             child: Text(
-                          "₹ " + "75000",
+                          "₹ " + "66,67,525.58",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25.0,
+                            fontSize: 22.0,
                             fontWeight: FontWeight.bold,
                           ),
                         )),
@@ -97,7 +97,7 @@ Widget createHomePage({required BuildContext context}) {
                               children: [
                                 Image.asset("assets/icons/upRightArrow.png"),
                                 Text(
-                                  " 1.5 " + "%",
+                                  " 1.21" + "%",
                                   style: TextStyle(
                                       color: Colors.green,
                                       fontSize: 18.0,
@@ -112,7 +112,7 @@ Widget createHomePage({required BuildContext context}) {
                         ),
                         Center(
                             child: Text(
-                          "₹ " + "2500",
+                          "₹ " + "54,598.5",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,

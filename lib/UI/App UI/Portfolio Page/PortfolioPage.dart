@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_meniac/API/CoinApi.dart';
 import 'package:crypto_meniac/API/RealtimePrice.dart';
+import 'package:crypto_meniac/Shared%20Prefrences/deleteCacheData.dart';
+import 'package:crypto_meniac/Shared%20Prefrences/readCacheData.dart';
 import 'package:crypto_meniac/UI/App%20UI/Coin%20Detail%20Page/CoinDetail.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
 import 'package:crypto_meniac/UI/App%20UI/Portfolio%20Page/PortfolioPage_widgets.dart';
@@ -10,6 +12,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 String coinId = "";
+ReadCacheData readCacheData = new ReadCacheData();
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({Key? key}) : super(key: key);
@@ -22,6 +25,13 @@ class _PortfolioPageState extends State<PortfolioPage> {
   final Stream<QuerySnapshot> coins =
       FirebaseFirestore.instance.collection('coins').snapshots();
   @override
+  void initState() {
+    // TODO: implement initState
+    readCacheData.readCache(key: 'totalInvested');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF0B0D12),
@@ -31,13 +41,19 @@ class _PortfolioPageState extends State<PortfolioPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 40.0),
-            Text(
-              "My Portfolio",
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            Row(
+              children: [
+                Text(
+                  "My Portfolio",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width:190),
+                Icon(Icons.history,color: Colors.white,size:35.0)
+              ],
             ),
             SizedBox(
               height: 20.0,
@@ -65,7 +81,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                       height: 5.0,
                     ),
                     Text(
-                      "₹ " + "75000",
+                      "₹ " + "66,67,525.58",
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
@@ -103,7 +119,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                                 ),
                                 Image.asset("assets/icons/upRightArrow.png"),
                                 Text(
-                                  " 12.0" + "%",
+                                  " 8.56" + "%",
                                   style: TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
@@ -112,7 +128,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                               ],
                             ),
                             Text(
-                              "₹ " + "25000",
+                              "₹ " + "1,39,618.31",
                               style: TextStyle(
                                 fontSize: 30.0,
                                 fontWeight: FontWeight.bold,
@@ -149,7 +165,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                                 ),
                                 Image.asset("assets/icons/upRightArrow.png"),
                                 Text(
-                                  " 1.8" + "%",
+                                  " 1.21" + "%",
                                   style: TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
@@ -158,7 +174,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                               ],
                             ),
                             Text(
-                              "₹ " + "1500",
+                              "₹ " + "54,598.5",
                               style: TextStyle(
                                 fontSize: 30.0,
                                 fontWeight: FontWeight.bold,
@@ -265,6 +281,19 @@ class _PortfolioPageState extends State<PortfolioPage> {
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               Text(data.docs[index]['coin_id'],
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  "Purchased on",
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              Text(data.docs[index]['date'].substring(0,10),
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                             ],

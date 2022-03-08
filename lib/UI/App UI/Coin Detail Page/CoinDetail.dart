@@ -7,7 +7,10 @@ import 'package:crypto_meniac/Firebase/Firestore%20DB/addCoin.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/deleteCoin.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/fetchData.dart';
 import 'package:crypto_meniac/Firebase/Firestore%20DB/updateCoin.dart';
+import 'package:crypto_meniac/Shared%20Prefrences/readCacheData.dart';
+import 'package:crypto_meniac/Shared%20Prefrences/writeCacheData.dart';
 import 'package:crypto_meniac/UI/App%20UI/Market%20Page/MarketPage.dart';
+import 'package:crypto_meniac/UI/App%20UI/Portfolio%20Page/PortfolioPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +19,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 TextEditingController _textFieldController = TextEditingController();
 TextEditingController _textFieldController2 = TextEditingController();
+WriteCache writeCache = new WriteCache();
 int selectedIndex = 0;
 int newQuantity = 0;
 int dbIndex = 0;
@@ -48,6 +52,7 @@ class _CoinDetailState extends State<CoinDetail> {
         });
       }
     }
+    readCacheData.readCache(key: 'totalInvested');
   }
 
   Widget build(BuildContext context) {
@@ -453,8 +458,8 @@ Future<void> _displayPurchaseInputDialog(BuildContext context) async {
           MaterialButton(
             child: Text('OK', style: TextStyle(color: Colors.white)),
             onPressed: () {
-              newQuantity = int.parse(_textFieldController.text);
-              if (newQuantity == 0 || _textFieldController.text.isEmpty) {
+              int qty = int.parse(_textFieldController.text);
+              if (_textFieldController.text.isEmpty) {
                 Navigator.pop(context);
                 Get.snackbar(
                   "\tError",
@@ -466,16 +471,18 @@ Future<void> _displayPurchaseInputDialog(BuildContext context) async {
                   duration: Duration(seconds: 5),
                 );
               } else {
+                DateTime now = new DateTime.now();
+                DateTime date = new DateTime(now.year, now.month, now.day);
                 addCoin
                     .add(
-                      uid: user.uid,
-                      coin_name: allCoinsData[selectedIndex]['name'],
-                      coin_id: allCoinsData[selectedIndex]['id'],
-                      buying_price: allCoinsData[selectedIndex]
-                          ['current_price'],
-                      quantity: newQuantity.toString(),
-                      img_url: allCoinsData[selectedIndex]['image'],
-                    )
+                        uid: user.uid,
+                        coin_name: allCoinsData[selectedIndex]['name'],
+                        coin_id: allCoinsData[selectedIndex]['id'],
+                        buying_price: allCoinsData[selectedIndex]
+                            ['current_price'],
+                        quantity: _textFieldController.text,
+                        img_url: allCoinsData[selectedIndex]['image'],
+                        date: date.toString())
                     .whenComplete(() => Get.snackbar(
                           "\tSuccess",
                           "\tTransaction sucsessful",
@@ -487,6 +494,12 @@ Future<void> _displayPurchaseInputDialog(BuildContext context) async {
                           duration: Duration(seconds: 5),
                         ));
                 // print(_textFieldController.text);
+                // networth += int.parse(allCoinsData[selectedIndex]['current_price']) *
+                //     int.parse(_textFieldController.text);
+                // writeCache.writeCache(
+                //     // FIXME: updated networth adding logic NOT TESTED
+                //     key: "netWorth",
+                //     value: networth.toString());
                 Navigator.pop(context);
               }
             },
@@ -532,12 +545,12 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
                 // print("test 1 : ${myCoins[dbIndex]['quantity'].runtimeType}");
                 newQuantity = int.parse(_textFieldController2.text);
                 int oldQuantity = int.parse(myCoins[dbIndex]['quantity']);
+                int newQty = oldQuantity - newQuantity;
                 print("final coin: $oldQuantity");
                 if (newQuantity != 0 || _textFieldController2.text.isNotEmpty) {
                   if (newQuantity < oldQuantity) {
                     await updateCoin.findDoc(
                         coinName: allCoinsData[selectedIndex]['name']);
-                    int newQty = oldQuantity - newQuantity;
                     print(" Print 6 :$newQty");
                     updateCoin
                         .update(quantity: newQty.toString(), docID: tempDocID)
@@ -552,7 +565,7 @@ Future<void> _displaySellInputDialog(BuildContext context) async {
                               duration: Duration(seconds: 5),
                             ));
                     Navigator.pop(context);
-                  } else if (newQuantity == oldQuantity) {
+                  } else if (newQuantity == oldQuantity && newQty == 0) {
                     deleteCoin
                         .delete(docID: tempDocID)
                         .whenComplete(() => Get.snackbar(

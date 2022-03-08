@@ -33,6 +33,7 @@ dependencies:
   google_sign_in: ^5.0.4
   http: ^0.13.3
   lottie: ^1.1.0
+  shared_preferences: ^2.0.7
   webview_flutter: ^2.0.10
 
 dev_dependencies:
